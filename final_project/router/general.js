@@ -45,3 +45,45 @@ public_users.get('/review/:isbn', (req, res) => {
 });
 
 module.exports.general = public_users;
+
+const axios = require('axios');
+
+// Task 10: Get all books using async/await
+public_users.get('/async/books', async (req, res) => {
+  try {
+    const response = await axios.get('http://localhost:5000/');
+    res.status(200).json({ task: "Task 10", data: response.data });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching books", error: error.message });
+  }
+});
+
+// Task 11: Get book by ISBN using async/await
+public_users.get('/async/isbn/:isbn', async (req, res) => {
+  try {
+    const response = await axios.get(`http://localhost:5000/isbn/${req.params.isbn}`);
+    res.status(200).json({ task: "Task 11", data: response.data });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching book by ISBN", error: error.message });
+  }
+});
+
+// Task 12: Get books by author using async/await
+public_users.get('/async/author/:author', async (req, res) => {
+  try {
+    const response = await axios.get(`http://localhost:5000/author/${encodeURIComponent(req.params.author)}`);
+    res.status(200).json({ task: "Task 12", data: response.data });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching books by author", error: error.message });
+  }
+});
+
+// Task 13: Get books by title using async/await
+public_users.get('/async/title/:title', async (req, res) => {
+  try {
+    const response = await axios.get(`http://localhost:5000/title/${encodeURIComponent(req.params.title)}`);
+    res.status(200).json({ task: "Task 13", data: response.data });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching books by title", error: error.message });
+  }
+});
